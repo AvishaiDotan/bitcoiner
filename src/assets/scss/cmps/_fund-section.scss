@@ -1,0 +1,20 @@
+.fund-section {
+
+    span {
+        font-family: Ubuntu-Light;
+        &:hover {
+            color: $clrPrimary;
+            cursor: pointer;
+        }
+    }
+
+    svg {
+        cursor: pointer;
+        height: 30px;
+        width: 30px;
+        transition: 0.4s;
+        &:hover {
+            color: $clrPrimary;
+        }
+    }
+}

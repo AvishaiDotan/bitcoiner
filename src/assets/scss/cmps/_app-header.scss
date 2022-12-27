@@ -1,0 +1,44 @@
+.main-header {
+
+    background-color: $clr-1;
+    border-block-end: 2px solid $clrSecondary;
+
+    padding-block: 20px;
+
+    @include for-tablet-layout {
+        padding-block: 40px;
+    }
+
+    h1 {
+        color: $clrPrimary;
+        font-size: rem(40px);
+        font-family: Ubuntu-BoldItalic;
+        display: flex;
+        align-items: center;
+    }
+
+
+
+    a:not(.logo) {
+        color: $clr1;
+        font-family: Ubuntu-Bold;
+        text-decoration: none;
+        transition: 0.4s;
+        padding-inline: 5px;
+
+        &:hover {
+            color: $clrPrimary;
+        }
+
+        &.active {
+            color: $clr1;
+            border-radius: 2em;
+            background-color: #51f20781;
+
+            &:hover {
+                background-color: #51f20734;
+            }
+
+        }
+    }
+}
