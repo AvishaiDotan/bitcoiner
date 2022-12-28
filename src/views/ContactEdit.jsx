@@ -1,46 +1,46 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { contactService } from '../services/contact.service'
+import { updateContact } from '../store/actions/contact.actions'
 
-export class ContactEdit extends Component {
+export const ContactEdit = () => {
+    const { id } = useParams()
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    
+    
+    const [contactToEdit, setContactToEdit] = useState(contactService.getEmptyContact())
 
-    state = {
-        contactToEdit: contactService.getEmptyContact()
-    }
+    useEffect(() => {
+        loadContact()
+    }, [id])
 
-    async componentDidMount() {
-        this.loadContact()
-    }
-
-
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.match.params.id !== this.props.match.params.id) {
-            this.loadContact()
-        }
-    }
-
-    loadContact = async () => {
-        const contactId = this.props.match.params.id
+    const loadContact = async () => {
+        const contactId = id
+        let contactToEdit = null
         if (contactId) {
-            const contactToEdit = await contactService.getContactById(contactId)
-            this.setState({ contactToEdit: { ...contactToEdit } })
+            try {
+                contactToEdit = await contactService.getContactById(contactId)
+            } catch (err) {
+                console.log(err);
+                contactToEdit = contactService.getEmptyContact()
+            }
         } else {
-            const contactToEdit = contactService.getEmptyContact()
-            this.setState({ contactToEdit: { ...contactToEdit } })
+            contactToEdit = contactService.getEmptyContact()
         }
+
+        setContactToEdit(contactToEdit)
     }
 
-    onAddContact = async (ev) => {
+    const onAddContact = async (ev) => {
         ev.preventDefault()
-        try {
-            await contactService.saveContact({ ...this.state.contactToEdit })
-            this.props.history.push('/contacts')
-        } catch (err) {
-            console.log('err:', err)
-        }
+        dispatch(updateContact(contactToEdit))
+        navigate('/contacts')
     }
 
-    handleChange = ({ target }) => {
+    const handleChange = ({ target }) => {
         const field = target.name
         let value = target.value
         switch (target.type) {
@@ -55,59 +55,56 @@ export class ContactEdit extends Component {
                 break;
         }
 
-        this.setState(({ contactToEdit }) => ({ contactToEdit: { ...contactToEdit, [field]: value } }))
+        let tempContact = {...contactToEdit }
+        tempContact = {...tempContact, [field]: value }
+        setContactToEdit(tempContact)
     }
 
-    render() {
-        const { name, email, phone } = this.state.contactToEdit
+    const { name, email, phone } = contactToEdit
 
-        return (
-            <section className='contact-edit'>
-                <div className="actions-container">
-                    <span onClick={() => this.props.history.goBack()}>Back</span>
-                </div>
-                <img
-                    className="user-img"
-                    src={`https://robohash.org/set_set5/${this.props.match.params.id || 0}`}
-                    alt=""
-                />
-                <form className='form'>
-                    <label htmlFor="name">
-                        <input
-
-                            type="text"
-                            onChange={this.handleChange}
-                            value={name}
-                            name="name"
-                            id="name"
-                            placeholder='Name'
-                        />
-                    </label>
-                    <label htmlFor="email">
-                        <input
-                            type="text"
-                            onChange={this.handleChange}
-                            value={email}
-                            name="email"
-                            id="email"
-                            placeholder='Email'
-                        />
-                    </label>
-                    <label htmlFor="phone">
-                        <input
-                            type="text"
-                            onChange={this.handleChange}
-                            value={phone}
-                            name="phone"
-                            id="phone"
-                            placeholder='Phone'
-                        />
-                    </label>
-                    <button onClick={(ev) => this.onAddContact(ev)}>Save</button>
-                </form>
-            </section>
-        )
-    }
+    return (
+        <section className='contact-edit'>
+            <div className="actions-container">
+                <span onClick={() => navigate('/contacts')}>Back</span>
+            </div>
+            <img
+                className="user-img"
+                src={`https://robohash.org/set_set5/${id || 0}`}
+                alt=""
+            />
+            <form className='form'>
+                <label htmlFor="name">
+                    <input
+                        type="text"
+                        onChange={handleChange}
+                        value={name}
+                        name="name"
+                        id="name"
+                        placeholder='Name'
+                    />
+                </label>
+                <label htmlFor="email">
+                    <input
+                        type="text"
+                        onChange={handleChange}
+                        value={email}
+                        name="email"
+                        id="email"
+                        placeholder='Email'
+                    />
+                </label>
+                <label htmlFor="phone">
+                    <input
+                        type="text"
+                        onChange={handleChange}
+                        value={phone}
+                        name="phone"
+                        id="phone"
+                        placeholder='Phone'
+                    />
+                </label>
+                <button onClick={(ev) => onAddContact(ev)}>Save</button>
+            </form>
+        </section>
+    )
 }
-
-export default ContactEdit

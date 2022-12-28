@@ -11,7 +11,7 @@ import {
   export function BtcToUsd({data}){
     return(
         <div className="chart">
-          <h1>1 BTC to USD chart today:</h1>
+          <h1>BTC to USD</h1>
           <LineChart
             width={500}
             height={300}
@@ -22,8 +22,9 @@ import {
               left: 20,
               bottom: 5,
             }}
+            
           >
-            <CartesianGrid strokeDasharray="3 3" />
+            <CartesianGrid strokeDasharray="3 3"/>
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />

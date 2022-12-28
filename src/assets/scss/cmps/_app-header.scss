@@ -41,4 +41,20 @@
 
         }
     }
+
+    .mobile-media {
+        display: none;
+        .list {
+            cursor: pointer;
+        }
+    }
+
+    @media screen and (max-width: 750px) {
+        .desktop-media {
+            display: none;
+        }
+        .mobile-media {
+            display: block;
+        }
+    }
 }

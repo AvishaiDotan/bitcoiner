@@ -1,56 +1,57 @@
-import { Component } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
 import { bitcoinService } from '../services/bitcoin.service'
 import { userService } from '../services/user.service'
+import { logout } from '../store/actions/user.actions'
 
-export class User extends Component {
+export const User = () => {
+    
+    const user = useSelector(state => state.userModule.loggedInUser)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
-    state = {
-        bitcoin: null,
-        user: null
-    }
+    if (!user) navigate('/signup')
 
-    componentDidMount() {
-        this.loadUser()
-    }
+    const [bitcoins, setBitcoins] = useState(null)
 
-    async getBitcoin() {
+    useEffect(() => {
+        getBitcoins()
+    }, [])
+
+    const getBitcoins = async () => {
         try {
-            const bitcoin = await bitcoinService.getBitcoin(this.state.user.coins)
-            this.setState({ bitcoin })
+            let bitcoins = await bitcoinService.getBitcoin(user.coins)
+            if (bitcoins) bitcoins = Math.round(bitcoins)
+            setBitcoins(bitcoins)
         } catch (err) {
             console.log(err)
         }
     }
 
-    loadUser() {
-        const user = userService.getUser()
-        this.setState({ user }, this.getBitcoin)
+    const handleLogout = () => {
+        dispatch(logout())
+        navigate(-1)
     }
 
-    render() {
-        const { user } = this.state
-        const { bitcoin } = this.state
-
-        if (!user || !bitcoin) return <div>loading...</div>
-
-        return (
-            <section className='user-details'>
-                <div className='actions-container flex justify-between p-i-5'>
-                    <button onClick={() => this.props.history.goBack()}>Back</button>
-                </div>
-                <img
-                    className="user-img"
-                    src={`https://robohash.org/set_set5/${user._id}`}
-                    alt=""
-                />
-                <section className='user-data'>
-                    <h3>Name: <span>{user.name}</span></h3>
-                    <h3>Coins: <span>{user.coins}</span></h3>
-                    <h3>Bitcoin: <span>{bitcoin}</span></h3>
-                </section>
-
+    return (
+        <section className='user-details'>
+            <div className='actions-container flex justify-between p-i-5'>
+                <button onClick={() => navigate('/contacts')}>Back</button>
+                <button onClick={() => handleLogout()}>Logout</button>
+            </div>
+            <img
+                className="user-img"
+                src={`https://robohash.org/set_set5/${user._id}`}
+                alt=""
+            />
+            <section className='user-data'>
+                <h3>Name: <span>{user.username}</span></h3>
+                <h3>Coins: <span>{user.coins}</span></h3>
+                <h3>Bitcoin: <span>{bitcoins}</span></h3>
             </section>
-        )
-    }
-}
 
+        </section>
+    )
+}

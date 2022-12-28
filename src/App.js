@@ -1,5 +1,8 @@
 import { Component } from 'react'
-import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+import { HashRouter as Router, Route, Routes, Switch } from 'react-router-dom'
+import { useEffect, useMemo, useState } from 'react'
+// import { useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { User } from './views/User'
 
@@ -9,48 +12,33 @@ import './assets/scss/main.scss'
 import { AppHeader } from './cmps/AppHeader'
 import { ContactIndex } from './views/ContactIndex'
 import { ContactDetails } from "./views/ContactDetails";
-import ContactEdit from './views/ContactEdit'
-import SignupPage from './views/SignupPage'
+import {ContactEdit} from './views/ContactEdit'
+import {SignupPage} from './views/SignupPage'
 
 import { userService } from './services/user.service'
 import { Charts } from './views/Charts'
 
 
-export class App extends Component {
-    state = {
-        user: null,
-    }
+export const App = () => {
 
-    componentDidMount() {
-        this.setState({ user: userService.getUser() }, () => {
-            console.log(this.state.user)
-        })
-    }
+    const loggedInUser = useSelector(state => state.userModule.loggedInUser)
 
-    render() {
-        const { user } = this.state
-        if (!user) return <div>Loading...</div>
-
-        return (
-            <Router>
-                <div className='main-layout'>
-                    <AppHeader />
-                    <main>
-                        <Switch>
-                            <Route path="/contact/edit/:id?" component={ContactEdit} />
-                            <Route path="/contact/:id" component={ContactDetails} />
-                            <Route path="/contacts" component={ContactIndex} />
-                            <Route path="/charts" component={Charts} />
-                            <Route path="/user" component={User}/>
-                            <Route path="/signUp" component={SignupPage} />
-                        </Switch>
-                    </main>
-
-                    <footer>
-                        <section>contactRights 2022 &copy;</section>
-                    </footer>
-                </div>
-            </Router>
-        )
-    }
+    return (
+        <Router>
+            <div className='main-layout'>
+                <AppHeader />
+                <main>
+                    <Routes>
+                        <Route path="/contacts" element={<ContactIndex />} />
+                        <Route path="/contact/edit/:id" element={<ContactEdit />} />
+                        <Route path="/contact/edit/" element={<ContactEdit />} />
+                        <Route path="/contact/:id" element={<ContactDetails />} />
+                        <Route path="/charts" element={<Charts />} />
+                        <Route path="/user" element={<User />} />
+                        <Route path="/signup" element={<SignupPage />} />
+                    </Routes>
+                </main>
+            </div>
+        </Router>
+    )
 }

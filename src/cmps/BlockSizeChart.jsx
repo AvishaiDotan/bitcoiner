@@ -12,7 +12,7 @@ import {
   export function BlockSizeChart({data}){
     return(
         <div className="chart">
-          <h1>1 BTC to USD chart today:</h1>
+          <h1>Market Traffic</h1>
           <LineChart
             width={500}
             height={300}

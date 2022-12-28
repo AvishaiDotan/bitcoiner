@@ -1,0 +1,86 @@
+.charts-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color: #1b1b1b60;
+    padding: 15px;
+
+    border-block-end: 1px #C0FF6A solid;
+    border-inline-start: 1px #C0FF6A solid;
+    border-block-start: 4px #C0FF6A solid;
+    border-inline-end: 4px #C0FF6A solid;
+
+    margin-block-start: 50px;
+
+    > :nth-child(odd) {
+        flex: 1;
+
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+        background-color: $clr-1;
+        padding: 50px;
+    }
+
+    h1 {
+        text-align: center;
+        width: 100%;
+        color: $clr1;
+        font-size: rem(36px);
+        font-family: Ubuntu-Light;
+    }
+
+    > :nth-child(even) {
+
+        flex: 1;
+
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+        background-color: $clr-1;
+        padding: 50px;
+    }
+
+    .recharts-legend-wrapper {
+        display: none;
+    }
+
+    @media screen and (max-width: 700px) {
+        h1 {
+            font-size: rem(25px);
+        }
+
+        >* {
+            padding: 40px !important;
+        }
+
+        .recharts-wrapper {
+            width: 300px !important;
+            height: max-content !important;
+
+        }
+
+        .recharts-surface {
+            width: 300px;
+            height: max-content !important;
+        }
+    }
+
+    @media screen and (max-width: 450px) {
+        h1 {
+            font-size: rem(16px);
+        }
+
+        .recharts-wrapper {
+            width: 200px !important;
+        }
+
+        .recharts-surface {
+            width: 200px;
+        }
+    }
+}

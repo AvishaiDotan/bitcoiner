@@ -8,16 +8,12 @@ const userKey = 'user'
 export const userService = {
     getUser,
     signUp,
-    addMove
+    addMove, 
+    logout
 };
 
 
-let gUser = storageService.load(userKey) || {
-    name: "Ochoa Hyde",
-    coins: 10000000,
-    password: '123456',
-    moves: [],
-};
+let gUser = storageService.load(userKey) || null;
 
 function getUser() {
     return gUser
@@ -26,9 +22,13 @@ function getUser() {
 function signUp(user) {
     gUser = user
     gUser._id = makeId()
-    gUser.coins = Math.round(Math.random() * 100000)
-
     storageService.store(userKey, user);
+    return user
+}
+
+function logout() {
+    gUser = null
+    localStorage.removeItem(userKey)
 }
 
 function addMove(move) {
