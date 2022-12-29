@@ -4,14 +4,15 @@ body {
     background-repeat: no-repeat;
     background-position: bottom;
     background-size: cover;
+    background-size: 200%;
     animation-name: moveBackground;
     animation-duration: 100s;
     animation-iteration-count: 100;
 }
 
 @keyframes moveBackground {
-    0%   {background-position-x: -600px;}
+    0%   {background-position-x: -100px;}
     50%  {background-position-x: 0px}
-    100%   {background-position-x: -600px;}
+    100%   {background-position-x: -100px;}
 }
 
