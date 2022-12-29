@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/bitcoiner/static/css/main.54cf6b57.css",
+    "main.css": "/bitcoiner/static/css/main.a13a2d3b.css",
     "main.js": "/bitcoiner/static/js/main.e0f79539.js",
     "static/js/787.616357b9.chunk.js": "/bitcoiner/static/js/787.616357b9.chunk.js",
     "static/media/Ubuntu-Light.ttf": "/bitcoiner/static/media/Ubuntu-Light.0dd2d5986e2731a16ee7.ttf",
@@ -8,12 +8,12 @@
     "static/media/Ubuntu-Bold.ttf": "/bitcoiner/static/media/Ubuntu-Bold.fec2d0f1431a6114a6ce.ttf",
     "static/media/magicpattern-svg-chart-1672086981656.svg": "/bitcoiner/static/media/magicpattern-svg-chart-1672086981656.5a9e619765c1065b9dea.svg",
     "index.html": "/bitcoiner/index.html",
-    "main.54cf6b57.css.map": "/bitcoiner/static/css/main.54cf6b57.css.map",
+    "main.a13a2d3b.css.map": "/bitcoiner/static/css/main.a13a2d3b.css.map",
     "main.e0f79539.js.map": "/bitcoiner/static/js/main.e0f79539.js.map",
     "787.616357b9.chunk.js.map": "/bitcoiner/static/js/787.616357b9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.54cf6b57.css",
+    "static/css/main.a13a2d3b.css",
     "static/js/main.e0f79539.js"
   ]
 }
