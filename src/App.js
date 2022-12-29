@@ -17,6 +17,7 @@ import {SignupPage} from './views/SignupPage'
 
 import { userService } from './services/user.service'
 import { Charts } from './views/Charts'
+import { Home } from './views/Home'
 
 
 export const App = () => {
@@ -36,6 +37,7 @@ export const App = () => {
                         <Route path="/charts" element={<Charts />} />
                         <Route path="/user" element={<User />} />
                         <Route path="/signup" element={<SignupPage />} />
+                        <Route path="/" element={<Home />} />
                     </Routes>
                 </main>
             </div>

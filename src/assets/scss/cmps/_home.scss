@@ -1,0 +1,52 @@
+.home {
+    color: $clr1;
+    padding: 1em;
+
+    h4 {
+        color: $clr1;
+        font-size: rem(50px);
+        font-weight: bold;
+        text-align: center;
+        margin-block-end: 50px;
+        font-family: Ubuntu-Bold;
+        
+        
+    }
+
+    p {
+        font-size: rem(20px);
+        line-height: 1.5;
+        margin: 1em 0;
+        text-align: justify;
+        font-family: Ubuntu-Light;
+
+        span {
+            font-family: Ubuntu-Bold;
+            color: $clr1;
+        }
+    }
+
+    div {
+        justify-content: flex-end;
+    }
+
+    button {
+        padding-inline: 50px;
+        background-color: $clr1;
+        padding-block: 25px;
+        
+        text-align: center;
+        font-family: Ubuntu-Bold;
+        font-size: rem(16px);
+        color: $clr-2;
+        transition: 0.4s;
+
+        border-radius: 0em;
+        &:hover {
+            border-radius: 2em;
+        }
+    }
+}
+
+
+

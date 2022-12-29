@@ -46,6 +46,9 @@
         display: none;
         .list {
             cursor: pointer;
+            width: 30px;
+            height: 30px;
+            color: $clr1;
         }
     }
 
